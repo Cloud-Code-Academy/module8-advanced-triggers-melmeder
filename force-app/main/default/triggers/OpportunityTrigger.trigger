@@ -60,10 +60,6 @@ trigger OpportunityTrigger on Opportunity (before update, after update, before d
         handler.afterInsertHandler(Trigger.new);
     }
 
-    //if (Trigger.isAfter && Trigger.isUpdate) {
-        // handler.afterUpdateHandler(Trigger.new, Trigger.old);
-    //}
-
     if (Trigger.isAfter && Trigger.isDelete) {
         handler.afterDeleteHandler(Trigger.old);
     }

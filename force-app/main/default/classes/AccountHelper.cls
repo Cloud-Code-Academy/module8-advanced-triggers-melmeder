@@ -38,7 +38,7 @@ public with sharing class AccountHelper {
                 acc.Type = 'Prospect';
             }
         }
-    }
+    } 
 
     public void addressCopy(List<Account> accountList){
         for (Account acc : accountList) {

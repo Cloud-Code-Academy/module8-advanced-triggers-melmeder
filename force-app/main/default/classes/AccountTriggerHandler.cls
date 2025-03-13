@@ -1,11 +1,11 @@
 public with sharing class AccountTriggerHandler extends TriggerHandler {
     List<Account> triggerNew = new List<Account>();
     
+    AccountHelper helper = new AccountHelper();
+    
     public AccountTriggerHandler() {
         this.triggerNew = (List<Account>)Trigger.new;
-    }
-
-    AccountHelper helper = new AccountHelper();
+    } 
     
     public void beforeInsertHandler(List<Account> triggerNew) {
         helper.setTypeProspect(this.triggerNew);

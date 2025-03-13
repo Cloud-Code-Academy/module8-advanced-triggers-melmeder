@@ -24,14 +24,14 @@ public with sharing class OpportunityHelper {
         Set<Id> acctIds = new Set<Id>();
 
         // Learned the hard way that I have to query for records in Trigger.new instead of trying to modify directly
-        List<Opportunity> triggerNewOpps = [SELECT Id, AccountId, Primary_Contact__c FROM Opportunity WHERE Id IN :oppNewMap.keySet()];
+        List<Opportunity> triggerNewOpps = [SELECT Id, AccountId, Primary_Contact__c FROM Opportunity WHERE Id IN :oppNewMap.keySet() WITH SYSTEM_MODE];
 
         for (Opportunity opp : triggerNewOpps) {
             acctIds.add(opp.AccountId);
         }
         // Make a map to hold Account ID to Contact
         Map<Id, Contact> acctToVpContactMap = new Map<Id, Contact>();
-        for (Contact contact : [SELECT Id, AccountId FROM Contact WHERE Title = :VP_SALES AND AccountId IN :acctIds]) {
+        for (Contact contact : [SELECT Id, AccountId FROM Contact WHERE Title = :VP_SALES AND AccountId IN :acctIds WITH SYSTEM_MODE]) {
             acctToVpContactMap.put(contact.AccountId, contact);
         }
         for (Opportunity opp : triggerNewOpps){            
@@ -40,7 +40,7 @@ public with sharing class OpportunityHelper {
                 oppsToUpdate.add(opp);
             }
         }
-        update oppsToUpdate;
+        Database.update(oppsToUpdate, AccessLevel.SYSTEM_MODE);
     } 
 
     public void createTasks(List<Opportunity> oppList) {
@@ -55,14 +55,9 @@ public with sharing class OpportunityHelper {
             tsk.OwnerId = opp.OwnerId;
             tsk.ActivityDate = Date.today().addDays(3);
             tasksToInsert.add(tsk);
-            System.debug('Task is: ' + tsk);
         }
         // Now we can safely insert the Task list
-        // try {
-            insert tasksToInsert;
-        // } catch (Exception e) {
-        //     System.debug('The following exception has occurred: ' + e.getMessage());
-        // }
+        Database.insert(tasksToInsert, AccessLevel.SYSTEM_MODE);
     }
 
     public void getContacts(List<Opportunity> oppList) {

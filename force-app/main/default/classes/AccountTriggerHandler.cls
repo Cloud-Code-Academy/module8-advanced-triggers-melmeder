@@ -1,7 +1,7 @@
 public with sharing class AccountTriggerHandler extends TriggerHandler {
     List<Account> triggerNew = new List<Account>();
 
-    AccountHelper helper = new AccountHelper(helper);
+    AccountHelper helper = new AccountHelper();
     
     public AccountTriggerHandler() {
         this.triggerNew = (List<Account>)Trigger.new;

@@ -28,10 +28,8 @@ Always ensure that your helper methods are bulk-safe to handle multiple records 
 */
 public with sharing class AccountHelper {
 
-    public String helperName;
-
     public AccountHelper() {
-        this.helperName = name;
+        // getting a warning about leaving this blank, but I can't think of what to put in here that's actually useful
     }
 
     public void setTypeProspect(List<Account> accountList){

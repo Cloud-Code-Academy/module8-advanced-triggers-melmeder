@@ -28,7 +28,9 @@ Always ensure that your helper methods are bulk-safe to handle multiple records 
 */
 public with sharing class AccountHelper {
 
-    public AccountHelper(String name) {
+    public String helperName;
+
+    public AccountHelper() {
         this.helperName = name;
     }
 

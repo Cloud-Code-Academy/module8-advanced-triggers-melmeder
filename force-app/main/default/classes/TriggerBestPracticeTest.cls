@@ -2,7 +2,7 @@
 Trigger Framework and Best Practices
 In this assignment, you will be refactoring and consolidating multiple files to follow best practices for triggers.
 
-1. AccountTrigger Helper: 
+1. DONE - AccountTrigger Helper, Handler, and Trigger itself: 
    Use the AccountHelper stubbed class to modularized the AccountTriggerCode. 
    This class contains methods that respond to specific Account trigger events. 
    Update and customize the helper methods as necessary for your specific Account logic.

@@ -15,56 +15,65 @@ For this lesson, students have two options:
 
 Remember, whichever option you choose, ensure that the trigger is activated and tested to validate its functionality.
 */
-trigger OpportunityTrigger on Opportunity (before update, after update, before delete, after delete, before insert, after insert, after undelete) {
-    Boolean hasAlreadyRun = false;
+trigger OpportunityTrigger on Opportunity(
+  before update,
+  after update,
+  before delete,
+  after delete,
+  before insert,
+  after insert,
+  after undelete
+) {
+  Boolean hasAlreadyRun = false;
 
-    OpportunityTriggerHandler handler = new OpportunityTriggerHandler();
+  new OpportunityTriggerHandler().run();
 
-    // BEFORE Context
+  //   // BEFORE Context
 
-    /*
-    * Refactoring AnotherOpportunityTrigger
-    * Set default Type for new Opportunities
-    */
-    if (Trigger.isBefore && Trigger.isInsert) {
-        handler.beforeInsertHandler(Trigger.new);
-    }
+  //   /*
+  //    * Refactoring AnotherOpportunityTrigger
+  //    * Set default Type for new Opportunities
+  //    */
+  //   if (Trigger.isBefore && Trigger.isInsert) {
+  //     handler.beforeInsertHandler(Trigger.new);
+  //   }
 
-    /*
-    * Opportunity Trigger
-    * 1. When an opportunity is updated validate that the amount is greater than 5000.
-    * Trigger should only fire on update.
-    * 2. When an opportunity is updated set the primary contact on the opportunity to the contact with the title of 'CEO'.
-    * Trigger should only fire on update.
-    */
-    if (Trigger.isBefore && Trigger.isUpdate && hasAlreadyRun == false){
-        handler.beforeUpdateHandler(Trigger.new);
-    }  
+  //   /*
+  //    * Opportunity Trigger
+  //    * 1. When an opportunity is updated validate that the amount is greater than 5000.
+  //    * Trigger should only fire on update.
+  //    * 2. When an opportunity is updated set the primary contact on the opportunity to the contact with the title of 'CEO'.
+  //    * Trigger should only fire on update.
+  //    */
+  //   if (Trigger.isBefore && Trigger.isUpdate && hasAlreadyRun == false) {
+  //     handler.beforeUpdateHandler(Trigger.new);
+  //   }
 
-    /*
-    * Opportunity Trigger
-    * When an opportunity is deleted prevent the deletion of a closed won opportunity if the account industry is 'Banking'.
-    * Trigger should only fire on delete.
-    */
-    if (Trigger.isBefore && Trigger.isDelete){
-        handler.beforeDeleteHandler(Trigger.old);
-    }
+  //   /*
+  //    * Opportunity Trigger
+  //    * When an opportunity is deleted prevent the deletion of a closed won opportunity if the account industry is 'Banking'.
+  //    * Trigger should only fire on delete.
+  //    */
+  //   if (Trigger.isBefore && Trigger.isDelete) {
+  //     handler.beforeDeleteHandler(Trigger.old);
+  //   }
 
-    // AFTER Context
+  //   // AFTER Context
 
-    /* 
-    * Refactoring AnotherOpportunityTrigger
-    * Create task for newly inserted Opportunities
-    */
-    if (Trigger.isAfter && Trigger.isInsert) {
-        handler.afterInsertHandler(Trigger.new);
-    }
+  //   /*
+  //    * Refactoring AnotherOpportunityTrigger
+  //    * Create task for newly inserted Opportunities
+  //    */
+  //   if (Trigger.isAfter && Trigger.isInsert) {
+  //     handler.afterInsertHandler(Trigger.new);
+  //   }
 
-    if (Trigger.isAfter && Trigger.isDelete) {
-        handler.afterDeleteHandler(Trigger.old);
-    }
+  //   if (Trigger.isAfter && Trigger.isDelete) {
+  //     handler.afterDeleteHandler(Trigger.old);
+  //   }
 
-    if (Trigger.isAfter && Trigger.isUndelete) {
-        handler.afterUndeleteHandler(Trigger.newMap);
-    }
+  //   if (Trigger.isAfter && Trigger.isUndelete) {
+  //     handler.afterUndeleteHandler(Trigger.newMap);
+  //   }
+
 }
